@@ -14,7 +14,7 @@ public class TaskService {
     Task task=new Task();
 
     public TaskService() {
-        task = new Task(task.getId(),"Task test","Description test",4,TaskStatus.PENDING, LocalDateTime.of(2024, 1,1,1,1));
+        task = new Task(task.getId(),"Task test","Description test",4,TaskStatus.PENDING, LocalDateTime.of(2024, 7,17,22,1));
         tasksSet.add(task);
         task = new Task(task.getId(),"Task test2","Description test2",2,TaskStatus.COMPLETED, LocalDateTime.now().plusDays(4));
         tasksSet.add(task);
@@ -45,6 +45,17 @@ public class TaskService {
 
     public void changeStatusAsDeadline(Consumer<Set<Task>> consumer){
         consumer.accept(tasksSet);
+    }
+
+    public void deadlineAlert(TaskNotifier notifier){
+        for (Task task :
+                tasksSet) {
+            String message= notifier.notify(task);
+            if(message!=null){
+                System.out.println(message);
+
+            }
+        }
     }
 
 }

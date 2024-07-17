@@ -33,5 +33,16 @@ public class Main {
                 }
             }
         });
+
+        //Custom Notifier
+        taskService.deadlineAlert(task-> {
+            if (Duration.between(LocalDateTime.now(), task.getDeadline()).abs().toHours() <= 4) {
+                return ("Reminder=> Deadline time: " + task.getDeadline());
+
+            }
+            return null;
+        });
+
+
     }
 }
